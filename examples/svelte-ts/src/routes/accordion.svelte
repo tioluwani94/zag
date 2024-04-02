@@ -7,11 +7,11 @@
 
   const controls = useControls(accordionControls)
 
-  const machine = useMachine(accordion.machine({ id: "1" }), {
+  const [_state, send] = useMachine(accordion.machine({ id: "1" }), {
     context: controls.context,
   })
 
-  const api = $derived(accordion.connect(machine.state, machine.send, normalizeProps))
+  const api = $derived(accordion.connect(_state, send, normalizeProps))
 </script>
 
 <main class="accordion">
@@ -33,4 +33,4 @@
   </div>
 </main>
 
-<Toolbar {controls} {machine} />
+<Toolbar {controls} state={_state} />

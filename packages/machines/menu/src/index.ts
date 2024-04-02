@@ -13,5 +13,6 @@ export type {
   OptionItemProps,
   OptionItemState,
   SelectionDetails,
-  ValueChangeDetails,
+  MachineContext,
+  MachineState,
 } from "./menu.types"

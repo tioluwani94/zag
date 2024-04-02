@@ -6,8 +6,6 @@ export function useSnapshot<
   TState extends S.StateSchema,
   TEvent extends S.EventObject = S.AnyEventObject,
 >(service: Machine<TContext, TState, TEvent>) {
-  //
-
   let state = $state(service.state)
 
   const unsubscribe = subscribe(service.state, () => {
@@ -16,10 +14,9 @@ export function useSnapshot<
 
   onDestroy(unsubscribe)
 
-  return {
-    // Need a getter to get fresh state.
-    get state() {
-      return state
+  return new Proxy(state, {
+    get(_, key) {
+      return state[key]
     },
-  }
+  })
 }

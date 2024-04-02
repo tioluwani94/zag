@@ -1,139 +1,141 @@
-import { expect, test } from "@playwright/test"
+import { test } from "@playwright/test"
 import { TagsInputModel } from "./models/tags-input.model"
 
-let user: TagsInputModel
+let I: TagsInputModel
 
 test.describe("tags-input", () => {
   test.beforeEach(async ({ page }) => {
-    user = new TagsInputModel(page)
-    await user.goto()
+    I = new TagsInputModel(page)
+    await I.goto()
   })
 
   test("should add new tag value", async () => {
-    await user.addTag("Svelte")
-    await user.expectTagToBeVisible("Svelte")
-    await expect(user.input).toBeEmpty()
-    await expect(user.input).toBeFocused()
+    await I.addTag("Svelte")
+    await I.seeTag("Svelte")
+    await I.seeInputHasValue("")
+    await I.seeInputIsFocused()
   })
 
   test("when input is empty backspace highlights the last tag", async () => {
-    await user.input.focus()
-    await user.backspace()
-    await user.expectTagToBeHighlighted("Vue")
+    await I.focusInput()
+    await I.pressKey("Backspace")
+    await I.seeTagIsHighlighted("Vue")
   })
 
   test("deletes tag with backspace when input value is empty", async () => {
-    await user.addTag("Svelte")
+    await I.addTag("Svelte")
 
-    await user.backspace()
-    await user.expectTagToBeHighlighted("Svelte")
+    await I.pressKey("Backspace")
+    await I.seeTagIsHighlighted("Svelte")
 
-    await user.backspace()
-    await user.expectTagToBeRemoved("Svelte")
+    await I.pressKey("Backspace")
+    await I.dontSeeTag("Svelte")
 
-    await user.expectInputToBeFocused()
+    await I.seeInputIsFocused()
   })
 
-  test("when tag is empty + no visible tags + enter pressed, should not enter editing state", async ({ page }) => {
-    await user.input.focus()
+  test("when tag is empty + no visible tags + enter pressed, should not enter editing state", async () => {
+    await I.focusInput()
 
-    await user.deleteLastTag()
-    await user.deleteLastTag()
+    await I.deleteLastTag()
+    await I.deleteLastTag()
 
-    await page.keyboard.press("Enter")
+    await I.pressKey("Enter")
 
-    await user.addTag("Svelte")
-    await user.expectTagToBeVisible("Svelte")
+    await I.addTag("Svelte")
+    await I.seeTag("Svelte")
 
-    await user.expectInputToBeEmpty()
-    await user.expectInputToBeFocused()
+    await I.seeInputHasValue("")
+    await I.seeInputIsFocused()
   })
 
   test("should navigate tags with arrow keys", async () => {
-    await user.addTag("Svelte")
-    await user.addTag("Solid")
+    await I.addTag("Svelte")
+    await I.addTag("Solid")
 
-    await user.arrowLeft()
-    await user.expectTagToBeHighlighted("Solid")
+    await I.pressKey("ArrowLeft")
+    await I.seeTagIsHighlighted("Solid")
 
-    await user.arrowLeft(2)
-    await user.expectTagToBeHighlighted("Vue")
+    await I.pressKey("ArrowLeft", 2)
+    await I.seeTagIsHighlighted("Vue")
 
-    await user.arrowRight()
-    await user.expectTagToBeHighlighted("Svelte")
+    await I.pressKey("ArrowRight")
+    await I.seeTagIsHighlighted("Svelte")
   })
 
   test("should clear focused tag on blur", async () => {
-    await user.addTag("Svelte")
-    await user.addTag("Solid")
+    await I.addTag("Svelte")
+    await I.addTag("Solid")
 
-    await user.arrowLeft()
-    await user.clickOutside()
+    await I.pressKey("ArrowLeft")
+    await I.clickOutside()
 
-    await user.expectNoTagToBeHighlighted()
+    await I.expectNoTagToBeHighlighted()
   })
 
   test("removes tag on close button click", async () => {
-    await user.clickTagClose("Vue")
-    await user.expectTagToBeRemoved("Vue")
-    await user.expectInputToBeFocused()
+    await I.clickTagClose("Vue")
+    await I.dontSeeTag("Vue")
+    await I.seeInputIsFocused()
   })
 
-  test("edit tag with enter key", async ({ page }) => {
-    await user.addTag("Svelte")
-    await user.addTag("Solid")
-    await user.arrowLeft(2)
+  test("edit tag with enter key", async () => {
+    await I.addTag("Svelte")
+    await I.addTag("Solid")
+    await I.pressKey("ArrowLeft", 2)
 
-    await page.keyboard.press("Enter")
+    await I.pressKey("Enter")
 
-    await user.expectTagInputToBeFocused("Svelte")
-    await user.editTag("Jenkins")
+    await I.seeTagInputIsFocused("Svelte")
+    await I.editTag("Jenkins")
 
-    await user.expectTagToBeVisible("Jenkins")
-    await user.expectTagInputToBeHidden("Jenkins")
+    await I.seeTag("Jenkins")
+    await I.dontSeeTagInput("Jenkins")
 
-    await user.expectInputToBeFocused()
+    await I.seeInputIsFocused()
   })
 
   test("edit with double click", async () => {
-    await user.addTag("Svelte")
-    await user.dblClick("Svelte")
+    await I.addTag("Svelte")
+    await I.doubleClickTag("Svelte")
 
-    await user.expectTagInputToBeFocused("Svelte")
-    await user.editTag("Jenkins")
+    await I.seeTagInputIsFocused("Svelte")
+    await I.editTag("Jenkins")
 
-    await user.expectTagToBeVisible("Jenkins")
-    await user.expectTagInputToBeHidden("Jenkins")
+    await I.seeTag("Jenkins")
+    await I.dontSeeTagInput("Jenkins")
   })
 
-  test("clears highlighted tag on escape press", async ({ page }) => {
-    await user.addTag("Svelte")
-    await user.arrowLeft()
-    await page.keyboard.press("Escape")
-    await user.expectNoTagToBeHighlighted()
+  test("clears highlighted tag on escape press", async () => {
+    await I.addTag("Svelte")
+    await I.pressKey("ArrowLeft")
+    await I.pressKey("Escape")
+    await I.expectNoTagToBeHighlighted()
   })
 
-  test("[addOnPaste: false] pasting + enter should work", async ({ page }) => {
-    await user.paste("Svelte")
-    await page.keyboard.press("Enter")
-    await user.expectTagToBeVisible("Svelte")
+  test("[addOnPaste: false] pasting + enter should work", async () => {
+    await I.paste("Svelte")
+    await I.pressKey("Enter")
+    await I.seeTag("Svelte")
   })
 
   test("[addOnPaste: true] pasting shoule add tags", async () => {
-    await user.controls.bool("addOnPaste", true)
-    await user.paste("Github, Jenkins")
-    await user.expectTagToBeVisible("Github")
-    await user.expectTagToBeVisible("Jenkins")
+    await I.controls.bool("addOnPaste", true)
+
+    await I.paste("Github, Jenkins")
+    await I.seeTag("Github")
+    await I.seeTag("Jenkins")
   })
 
   test("[addOnPaste: true] when input is empty, should work", async () => {
-    await user.controls.bool("addOnPaste", true)
+    await I.controls.bool("addOnPaste", true)
+
     // clear input
-    await user.deleteLastTag()
-    await user.deleteLastTag()
+    await I.deleteLastTag()
+    await I.deleteLastTag()
 
     // paste
-    await user.paste("Github")
-    await user.expectTagToBeVisible("Github")
+    await I.paste("Github")
+    await I.seeTag("Github")
   })
 })

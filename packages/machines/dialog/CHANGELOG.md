@@ -1,5 +1,51 @@
 # @zag-js/dialog
 
+## 0.42.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/dismissable@0.42.0
+  - @zag-js/anatomy@0.42.0
+  - @zag-js/core@0.42.0
+  - @zag-js/types@0.42.0
+  - @zag-js/aria-hidden@0.42.0
+  - @zag-js/utils@0.42.0
+  - @zag-js/dom-query@0.42.0
+  - @zag-js/remove-scroll@0.42.0
+
+## 0.41.0
+
+### Minor Changes
+
+- [`e47d60d`](https://github.com/chakra-ui/zag/commit/e47d60d2d9357eb24331d12f330d46e2f545f45d) Thanks [@segunadebayo](https://github.com/segunadebayo)! - Sync `zIndex` of content with positioner via `--z-index` css variable
+
+### Patch Changes
+
+- Updated dependencies [[`e47d60d`](https://github.com/chakra-ui/zag/commit/e47d60d2d9357eb24331d12f330d46e2f545f45d)]:
+  - @zag-js/dismissable@0.41.0
+  - @zag-js/anatomy@0.41.0
+  - @zag-js/core@0.41.0
+  - @zag-js/types@0.41.0
+  - @zag-js/aria-hidden@0.41.0
+  - @zag-js/utils@0.41.0
+  - @zag-js/dom-query@0.41.0
+  - @zag-js/remove-scroll@0.41.0
+
+## 0.40.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/anatomy@0.40.0
+  - @zag-js/core@0.40.0
+  - @zag-js/types@0.40.0
+  - @zag-js/aria-hidden@0.40.0
+  - @zag-js/utils@0.40.0
+  - @zag-js/dismissable@0.40.0
+  - @zag-js/dom-query@0.40.0
+  - @zag-js/remove-scroll@0.40.0
+
 ## 0.39.0
 
 ### Patch Changes
@@ -888,7 +934,7 @@
 
   ```jsx
   // this is will open the dialog initially
-  const [state, send] = useMachine(dialog.machine({ id: "1", open: true }))
+  const [state, send] = useMachine(dialog.machine({ id: "1", open: true }));
 
   // this will open the dialog when the `open` value changes
   const [state, send] = useMachine(dialog.machine({ id: "1" }), {
@@ -896,7 +942,7 @@
       // when this value changes, the dialog will open/close
       open: true,
     },
-  })
+  });
   ```
 
 ### Patch Changes

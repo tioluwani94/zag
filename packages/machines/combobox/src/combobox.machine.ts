@@ -45,6 +45,9 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
           ...ctx.translations,
         },
       },
+
+      created: ["initialize"],
+
       computed: {
         isInputValueEmpty: (ctx) => ctx.inputValue.length === 0,
         isInteractive: (ctx) => !(ctx.readOnly || ctx.disabled),
@@ -541,7 +544,23 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
           set.inputValue(ctx, "")
         },
         revertInputValue(ctx) {
-          set.inputValue(ctx, ctx.hasSelectedItems ? ctx.valueAsString : "")
+          set.inputValue(
+            ctx,
+            match(ctx.selectionBehavior, {
+              replace: ctx.hasSelectedItems ? ctx.valueAsString : "",
+              clear: "",
+              preserve: ctx.inputValue,
+            }),
+          )
+        },
+        initialize(ctx) {
+          const items = ctx.collection.items(ctx.value)
+          const valueAsString = ctx.collection.itemsToString(items)
+          ctx.inputValue = match(ctx.selectionBehavior, {
+            preserve: valueAsString,
+            replace: valueAsString,
+            clear: "",
+          })
         },
         setSelectedItems(ctx, evt) {
           set.selectedItems(ctx, evt.value)

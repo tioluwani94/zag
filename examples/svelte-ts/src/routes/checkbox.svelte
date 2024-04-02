@@ -8,11 +8,11 @@
 
   const controls = useControls(checkboxControls)
 
-  const machine = useMachine(checkbox.machine({ id: "1" }), {
+  const [_state, send] = useMachine(checkbox.machine({ id: "1" }), {
     context: controls.context,
   })
 
-  const api = $derived(checkbox.connect(machine.state, machine.send, normalizeProps))
+  const api = $derived(checkbox.connect(_state, send, normalizeProps))
 </script>
 
 <main class="checkbox">
@@ -37,4 +37,4 @@
   </form>
 </main>
 
-<Toolbar {controls} {machine} />
+<Toolbar {controls} state={_state} />

@@ -1,5 +1,37 @@
 # @zag-js/dismissable
 
+## 0.42.0
+
+### Patch Changes
+
+- Updated dependencies [[`6122eee`](https://github.com/chakra-ui/zag/commit/6122eee55632899cbaa3cb5505625a25df57f7ce)]:
+  - @zag-js/dom-event@0.42.0
+  - @zag-js/interact-outside@0.42.0
+  - @zag-js/utils@0.42.0
+  - @zag-js/dom-query@0.42.0
+
+## 0.41.0
+
+### Patch Changes
+
+- [`e47d60d`](https://github.com/chakra-ui/zag/commit/e47d60d2d9357eb24331d12f330d46e2f545f45d) Thanks [@segunadebayo](https://github.com/segunadebayo)! - Fix issue where deferred nested + portalled layers don't work as expected
+
+- Updated dependencies [[`e47d60d`](https://github.com/chakra-ui/zag/commit/e47d60d2d9357eb24331d12f330d46e2f545f45d)]:
+  - @zag-js/interact-outside@0.41.0
+  - @zag-js/utils@0.41.0
+  - @zag-js/dom-event@0.41.0
+  - @zag-js/dom-query@0.41.0
+
+## 0.40.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/utils@0.40.0
+  - @zag-js/dom-event@0.40.0
+  - @zag-js/dom-query@0.40.0
+  - @zag-js/interact-outside@0.40.0
+
 ## 0.39.0
 
 ### Patch Changes

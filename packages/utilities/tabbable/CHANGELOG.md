@@ -1,5 +1,28 @@
 # @zag-js/tabbable
 
+## 0.42.0
+
+### Patch Changes
+
+- [#1385](https://github.com/chakra-ui/zag/pull/1385) [`c55ff29`](https://github.com/chakra-ui/zag/commit/c55ff297a408779232146953daa0b5aba6e14d9e) Thanks [@ocavue](https://github.com/ocavue)! - Correct some returned types.
+
+- Updated dependencies []:
+  - @zag-js/dom-query@0.42.0
+
+## 0.41.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/dom-query@0.41.0
+
+## 0.40.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/dom-query@0.40.0
+
 ## 0.39.0
 
 ### Patch Changes
@@ -411,16 +434,20 @@
   element in DOM sequence.
 
   ```js
-  import { proxyTabFocus } from "@zag-js/tabbable"
+  import { proxyTabFocus } from "@zag-js/tabbable";
 
   export function App() {
-    const referenceRef = useRef()
-    const containerRef = useRef()
+    const referenceRef = useRef();
+    const containerRef = useRef();
 
     useEffect(() => {
-      const focusElement = (el) => el.focus({ preventScroll: true })
-      return proxyTabFocus(containerRef.current, referenceRef.current, focusElement)
-    }, [])
+      const focusElement = (el) => el.focus({ preventScroll: true });
+      return proxyTabFocus(
+        containerRef.current,
+        referenceRef.current,
+        focusElement,
+      );
+    }, []);
 
     return (
       <div>
@@ -433,7 +460,7 @@
         </Portal>
         <button>Outside</button>
       </div>
-    )
+    );
   }
   ```
 

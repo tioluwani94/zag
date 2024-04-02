@@ -10,7 +10,7 @@
 
   const controls = useControls(colorPickerControls)
 
-  const machine = useMachine(
+  const [_state, send] = useMachine(
     colorPicker.machine({
       id: "1",
       name: "color",
@@ -22,7 +22,7 @@
     },
   )
 
-  const api = $derived(colorPicker.connect(machine.state, machine.send, normalizeProps))
+  const api = $derived(colorPicker.connect(_state, send, normalizeProps))
 </script>
 
 <main class="color-picker">
@@ -33,6 +33,7 @@
   >
     <input {...api.hiddenInputProps} />
     <div {...api.rootProps}>
+      <!-- svelte-ignore a11y-label-has-associated-control -->
       <label {...api.labelProps}>
         Select Color: <span data-testid="value-text">{api.valueAsString}</span>
       </label>
@@ -125,7 +126,7 @@
   </form>
 </main>
 
-<Toolbar {controls} {machine} />
+<Toolbar {controls} state={_state} />
 
 {#snippet EyeDropIcon()}
   <svg

@@ -1,5 +1,5 @@
-import { type Page } from "@playwright/test"
-import { controls, repeat } from "../_utils"
+import { type Page, expect } from "@playwright/test"
+import { a11y, clickOutside, clickViz, controls, repeat } from "../_utils"
 
 export class Model {
   constructor(public page: Page) {}
@@ -8,27 +8,59 @@ export class Model {
     return controls(this.page)
   }
 
-  esc(times = 1) {
-    return repeat(times, () => this.page.keyboard.press("Escape"))
+  clickViz() {
+    return clickViz(this.page)
   }
 
-  enter(times = 1) {
-    return repeat(times, () => this.page.keyboard.press("Enter"))
+  clickOutside() {
+    return clickOutside(this.page)
   }
 
-  backspace(times = 1) {
-    return repeat(times, () => this.page.keyboard.press("Backspace"))
+  checkAccessibility(selector?: string) {
+    return a11y(this.page, selector)
   }
 
-  arrowLeft(times = 1) {
-    return repeat(times, () => this.page.keyboard.press("ArrowLeft"))
+  pressKey(key: string, times = 1) {
+    return repeat(times, () => this.page.keyboard.press(key))
   }
 
-  arrowRight(times = 1) {
-    return repeat(times, () => this.page.keyboard.press("ArrowRight"))
+  pressKeyDown(key: string, times = 1) {
+    return repeat(times, () => this.page.keyboard.down("ArrowDown"))
   }
 
-  type(value: string) {
+  pressKeyUp(key: string, times = 1) {
+    return repeat(times, () => this.page.keyboard.up("ArrowUp"))
+  }
+
+  rightClick(selector: string) {
+    return this.page.locator(selector).click({ button: "right" })
+  }
+
+  typeInHexInput(value: string) {
     return this.page.keyboard.type(value)
+  }
+
+  seeCaretAt = async (position: number) => {
+    const value = await this.page.evaluate(() => {
+      const el = document.activeElement
+      try {
+        return (el as any).selectionStart
+      } catch (error) {
+        return -1
+      }
+    })
+    expect(value).toBe(position)
+  }
+
+  moveCursorTo(pos: { x: number; y: number }) {
+    return this.page.mouse.move(pos.x, pos.y)
+  }
+
+  attachFile(selector: string, path: string) {
+    return this.page.setInputFiles(selector, path)
+  }
+
+  resizeWindow(size: { width: number; height: number }) {
+    return this.page.setViewportSize(size)
   }
 }

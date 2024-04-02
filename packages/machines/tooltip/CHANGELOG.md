@@ -1,5 +1,48 @@
 # @zag-js/tooltip
 
+## 0.42.0
+
+### Patch Changes
+
+- Updated dependencies [[`6122eee`](https://github.com/chakra-ui/zag/commit/6122eee55632899cbaa3cb5505625a25df57f7ce)]:
+  - @zag-js/dom-event@0.42.0
+  - @zag-js/anatomy@0.42.0
+  - @zag-js/core@0.42.0
+  - @zag-js/types@0.42.0
+  - @zag-js/utils@0.42.0
+  - @zag-js/dom-query@0.42.0
+  - @zag-js/popper@0.42.0
+
+## 0.41.0
+
+### Minor Changes
+
+- [`d161ebf`](https://github.com/chakra-ui/zag/commit/d161ebfe4960ed0cf4697380edf8ee3ad7d4be31) Thanks [@segunadebayo](https://github.com/segunadebayo)! - Set tooltip `interactive` to `false` by default
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/anatomy@0.41.0
+  - @zag-js/core@0.41.0
+  - @zag-js/types@0.41.0
+  - @zag-js/utils@0.41.0
+  - @zag-js/dom-event@0.41.0
+  - @zag-js/dom-query@0.41.0
+  - @zag-js/popper@0.41.0
+
+## 0.40.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/anatomy@0.40.0
+  - @zag-js/core@0.40.0
+  - @zag-js/types@0.40.0
+  - @zag-js/utils@0.40.0
+  - @zag-js/dom-event@0.40.0
+  - @zag-js/dom-query@0.40.0
+  - @zag-js/popper@0.40.0
+
 ## 0.39.0
 
 ### Patch Changes
@@ -851,7 +894,7 @@
 
   ```jsx
   // this is will open the dialog initially
-  const [state, send] = useMachine(dialog.machine({ id: "1", open: true }))
+  const [state, send] = useMachine(dialog.machine({ id: "1", open: true }));
 
   // this will open the dialog when the `open` value changes
   const [state, send] = useMachine(dialog.machine({ id: "1" }), {
@@ -859,7 +902,7 @@
       // when this value changes, the dialog will open/close
       open: true,
     },
-  })
+  });
   ```
 
 ### Patch Changes
@@ -879,7 +922,7 @@
   of the popover. This API supports all the positioning options.
 
   ```js
-  api.setPositioning({ placement: "top" })
+  api.setPositioning({ placement: "top" });
   ```
 
 ### Patch Changes

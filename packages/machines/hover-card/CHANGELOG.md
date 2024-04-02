@@ -1,5 +1,44 @@
 # @zag-js/hover-card
 
+## 0.42.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/dismissable@0.42.0
+  - @zag-js/anatomy@0.42.0
+  - @zag-js/core@0.42.0
+  - @zag-js/types@0.42.0
+  - @zag-js/utils@0.42.0
+  - @zag-js/dom-query@0.42.0
+  - @zag-js/popper@0.42.0
+
+## 0.41.0
+
+### Patch Changes
+
+- Updated dependencies [[`e47d60d`](https://github.com/chakra-ui/zag/commit/e47d60d2d9357eb24331d12f330d46e2f545f45d)]:
+  - @zag-js/dismissable@0.41.0
+  - @zag-js/anatomy@0.41.0
+  - @zag-js/core@0.41.0
+  - @zag-js/types@0.41.0
+  - @zag-js/utils@0.41.0
+  - @zag-js/dom-query@0.41.0
+  - @zag-js/popper@0.41.0
+
+## 0.40.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/anatomy@0.40.0
+  - @zag-js/core@0.40.0
+  - @zag-js/types@0.40.0
+  - @zag-js/utils@0.40.0
+  - @zag-js/dismissable@0.40.0
+  - @zag-js/dom-query@0.40.0
+  - @zag-js/popper@0.40.0
+
 ## 0.39.0
 
 ### Patch Changes
@@ -827,7 +866,7 @@
 
   ```jsx
   // this is will open the dialog initially
-  const [state, send] = useMachine(dialog.machine({ id: "1", open: true }))
+  const [state, send] = useMachine(dialog.machine({ id: "1", open: true }));
 
   // this will open the dialog when the `open` value changes
   const [state, send] = useMachine(dialog.machine({ id: "1" }), {
@@ -835,7 +874,7 @@
       // when this value changes, the dialog will open/close
       open: true,
     },
-  })
+  });
   ```
 
 ### Patch Changes
@@ -855,7 +894,7 @@
   of the popover. This API supports all the positioning options.
 
   ```js
-  api.setPositioning({ placement: "top" })
+  api.setPositioning({ placement: "top" });
   ```
 
 ### Patch Changes
@@ -949,15 +988,15 @@
   [@TimKolberger](https://github.com/TimKolberger)! - Add `open` and `close` functions to the connect api:
 
   ```ts
-  import * as hoverCard from "@zag-js/hover-card"
+  import * as hoverCard from "@zag-js/hover-card";
 
-  const api = hoverCard.connect(state, send, normalizeProps)
+  const api = hoverCard.connect(state, send, normalizeProps);
 
   // call `open` to open the hover card
-  api.open()
+  api.open();
 
   // call `close` to close the hover card
-  api.close()
+  api.close();
   ```
 
 ### Patch Changes

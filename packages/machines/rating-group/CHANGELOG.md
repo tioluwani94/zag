@@ -1,5 +1,44 @@
 # @zag-js/rating-group
 
+## 0.42.0
+
+### Patch Changes
+
+- Updated dependencies [[`6122eee`](https://github.com/chakra-ui/zag/commit/6122eee55632899cbaa3cb5505625a25df57f7ce)]:
+  - @zag-js/dom-event@0.42.0
+  - @zag-js/anatomy@0.42.0
+  - @zag-js/core@0.42.0
+  - @zag-js/types@0.42.0
+  - @zag-js/utils@0.42.0
+  - @zag-js/dom-query@0.42.0
+  - @zag-js/form-utils@0.42.0
+
+## 0.41.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/anatomy@0.41.0
+  - @zag-js/core@0.41.0
+  - @zag-js/types@0.41.0
+  - @zag-js/utils@0.41.0
+  - @zag-js/dom-event@0.41.0
+  - @zag-js/dom-query@0.41.0
+  - @zag-js/form-utils@0.41.0
+
+## 0.40.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @zag-js/anatomy@0.40.0
+  - @zag-js/core@0.40.0
+  - @zag-js/types@0.40.0
+  - @zag-js/utils@0.40.0
+  - @zag-js/dom-event@0.40.0
+  - @zag-js/dom-query@0.40.0
+  - @zag-js/form-utils@0.40.0
+
 ## 0.39.0
 
 ### Patch Changes
@@ -863,10 +902,10 @@
 
   ```js
   // set the value of the rating-group to 3
-  api.setValue(3)
+  api.setValue(3);
 
   // clear the value of the rating-group
-  api.clearValue()
+  api.clearValue();
   ```
 
 ### Patch Changes

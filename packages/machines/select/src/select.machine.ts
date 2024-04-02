@@ -48,6 +48,8 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
 
       initial: ctx.open ? "open" : "idle",
 
+      entry: ["syncSelectElement"],
+
       watch: {
         open: ["toggleVisibility"],
         value: ["syncSelectElement"],
@@ -431,7 +433,7 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
           })
         },
         scrollToHighlightedItem(ctx, _evt, { getState }) {
-          const exec = () => {
+          const exec = (immediate: boolean) => {
             const state = getState()
 
             // don't scroll into view if we're using the pointer
@@ -440,10 +442,16 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
             const optionEl = dom.getHighlightedOptionEl(ctx)
             const contentEl = dom.getContentEl(ctx)
 
+            if (ctx.scrollToIndexFn) {
+              const highlightedIndex = ctx.collection.indexOf(ctx.highlightedValue)
+              ctx.scrollToIndexFn({ index: highlightedIndex, immediate })
+              return
+            }
+
             scrollIntoView(optionEl, { rootEl: contentEl, block: "nearest" })
           }
-          raf(() => exec())
-          return observeAttributes(dom.getContentEl(ctx), ["aria-activedescendant"], exec)
+          raf(() => exec(true))
+          return observeAttributes(dom.getContentEl(ctx), ["aria-activedescendant"], () => exec(false))
         },
       },
       actions: {
@@ -564,7 +572,11 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
           set.selectedItem(ctx, value)
         },
         scrollContentToTop(ctx) {
-          dom.getContentEl(ctx)?.scrollTo(0, 0)
+          if (ctx.scrollToIndexFn) {
+            ctx.scrollToIndexFn({ index: 0, immediate: true })
+          } else {
+            dom.getContentEl(ctx)?.scrollTo(0, 0)
+          }
         },
         invokeOnOpen(ctx) {
           ctx.onOpenChange?.({ open: true })
@@ -575,6 +587,12 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
         syncSelectElement(ctx) {
           const selectEl = dom.getHiddenSelectEl(ctx)
           if (!selectEl) return
+
+          if (ctx.value.length === 0 && !ctx.multiple) {
+            selectEl.selectedIndex = -1
+            return
+          }
+
           for (const option of selectEl.options) {
             option.selected = ctx.value.includes(option.value)
           }
@@ -609,6 +627,7 @@ const invoke = {
     ctx.onHighlightChange?.({
       highlightedValue: ctx.highlightedValue,
       highlightedItem: ctx.highlightedItem,
+      highlightedIndex: ctx.collection.indexOf(ctx.highlightedValue),
     })
   },
 }

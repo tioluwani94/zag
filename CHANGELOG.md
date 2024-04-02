@@ -6,6 +6,66 @@ All notable changes to this project will be documented in this file.
 
 See the [Changesets](./.changeset) for the latest changes.
 
+## [0.42.0](./#0.42.0) - 2024-04-01
+
+### Added
+
+- **File Upload**
+  - Add support selecting directories via `directory` prop
+  - Add support for `capture` property that specifies which camera to use for capture of image or video
+
+### Changed
+
+- **Menu [Breaking]**
+  - Removed `value` and `onValueChange` in favor of using explicit state to manage option items, and passing `checked`
+    and `onCheckedChange` to the `getOptionItemProps` callback.
+  - Prefer `value` over `id` in `getItemProps` and `getOptionItemProps` for consistency with other machine.
+  - `onSelect` now provides `value` not `id` in its details.
+
+## [0.41.0](./#0.41.0) - 2024-04-01
+
+### Fixed
+
+- **Select**
+  - Fix issue where select doesn't work in forms when `readOnly: true` is set
+  - Fix issue where initial value was not synced with hidden select element
+
+### Added
+
+- **Dialog**: Sync `zIndex` of content with positioner and backdrop via `--z-index` css variable. This helps with
+  stacking order when using multiple dialogs.
+
+- **Dismissable**: Improve interaction outside logic when layer rendering is deferred (via Portals or unmounted)
+
+- **Utilities**: Add support for `formatDate` and `formatList` functions that use the underlying `Intl.*`
+  implementations
+
+### Changed
+
+- **Tooltip**: Set tooltip `interactive` to `false` by default
+
+## [0.40.0](./#0.40.0) - 2024-03-26
+
+### Fixed
+
+- **Circular Progress**: Fix issue where circular progress circle diameter doesn't get calculated correctly
+- **Combobox**:
+  - Fix issue where input doesn't clear when `selectionBehavior` is set to `clear`
+  - Fix issue where input doesn't show initially selected `value`
+  - Fix issue where empty input was replaced by selected value string when typing
+
+### Added
+
+- **[NEW]** Introduce new floating panel machine for draggable and resizable panels
+- **Select**
+  - Add `data-placement` to the select content to make it easier to style
+  - Add support for `scrollToIndexFn` to be used with virtualization libraries
+  - Add support for `highlightedIndex` in the `onHighlightChange` callback
+
+### Changed
+
+- **Svelte**: Unify API for `useService` and `useMachine` with other frameworks
+
 ## [0.39.0](./#0.39.0) - 2024-03-19
 
 ### Fixed
