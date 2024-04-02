@@ -1,14 +1,63 @@
 ---
 title: Datepicker
-description: Using the datepicker machine in your project.
+description: Using the date picker machine in your project.
 package: "@zag-js/date-picker"
 ---
 
 # Datepicker
 
-A datepicker is an input widget with an associated popup that enables users to
+A date picker is an input widget with an associated popup that enables users to
 select a date from a calendar.
 
 <Resources pkg="@zag-js/date-picker" />
 
 <Showcase id="Combobox" />
+
+**Features**
+
+- Support for selecting multiple values
+- Support for disabled options
+- Support for custom user input values
+- Support for mouse, touch, and keyboard interactions
+- Keyboard support for opening the combo box list box using the arrow keys,
+  including automatically focusing the first or last item accordingly
+
+## Installation
+
+To use the date picker machine in your project, run the following command in
+your command line:
+
+<CodeSnippet id="date-picker/installation.mdx" />
+
+This command will install the framework agnostic date picker logic and the
+reactive utilities for your framework of choice.
+
+## Anatomy
+
+To set up the date picker correctly, you'll need to understand its anatomy and
+how we name its parts.
+
+> Each part includes a `data-part` attribute to help identify them in the DOM.
+
+<Anatomy id="combobox" />
+
+## Usage
+
+First, import the date picker package into your project
+
+```jsx
+import * as datepicker from "@zag-js/date-picker"
+```
+
+The date picker package exports these functions:
+
+- `machine` — The state machine logic for the date picker widget.
+- `connect` — The function that translates the machine's state to JSX attributes
+  and event handlers.
+- `collection` - The function that creates a collection interface from an array
+  of items.
+
+Next, import the required hooks and functions for your framework and use the
+date picker machine in your project 🔥
+
+<CodeSnippet id="date-picker/usage.mdx" />
